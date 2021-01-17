@@ -5,12 +5,32 @@
  */
 package vista;
 
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+import modelo.modelo;
+import modelo.relojCPU;
+
 /**
  *
  * @author Santiago
  */
 public class vista extends javax.swing.JFrame {
-
+    public ArrayList <modelo> nuevo = new ArrayList();
+    public ArrayList <modelo> listo = new ArrayList();
+    public ArrayList <modelo> ejecucion = new ArrayList();
+    public ArrayList <modelo> bloqueado = new ArrayList();
+    public ArrayList <modelo> terminado = new ArrayList();
+    public ArrayList <modelo> estadisticas = new ArrayList();
+    public modelo objmodelo;
+    DefaultTableModel guia=new  DefaultTableModel();
     /**
      * Creates new form vista
      */
@@ -27,6 +47,7 @@ public class vista extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -35,10 +56,15 @@ public class vista extends javax.swing.JFrame {
         tbl_nuevo = new javax.swing.JTable();
         jScrollPane4 = new javax.swing.JScrollPane();
         tbl_ejecucion = new javax.swing.JTable();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        tbl_terminado = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
-        tbl_terminado1 = new javax.swing.JTable();
+        tbl_terminado = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbl_bloqueado = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbl_estadprocesos = new javax.swing.JTable();
@@ -51,20 +77,18 @@ public class vista extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         lbl_idproceso2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        lbl_idproceso1 = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         op_r1 = new javax.swing.JRadioButton();
         jLabel8 = new javax.swing.JLabel();
-        opr3 = new javax.swing.JRadioButton();
+        op_r3 = new javax.swing.JRadioButton();
         op_r2 = new javax.swing.JRadioButton();
         op_r4 = new javax.swing.JRadioButton();
         op_r6 = new javax.swing.JRadioButton();
         op_r5 = new javax.swing.JRadioButton();
         btn_clear = new javax.swing.JButton();
         btn_addp = new javax.swing.JButton();
-        btn_run = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+
+        jLabel6.setText("jLabel6");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -79,11 +103,11 @@ public class vista extends javax.swing.JFrame {
 
             },
             new String [] {
-                "listo"
+                "ID", "TAMAÑO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -97,11 +121,11 @@ public class vista extends javax.swing.JFrame {
 
             },
             new String [] {
-                "nuevo"
+                "ID", "TAMAÑO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -115,11 +139,11 @@ public class vista extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ejecucion"
+                "ID", "TAMAÑO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -133,74 +157,110 @@ public class vista extends javax.swing.JFrame {
 
             },
             new String [] {
-                "bloqueado"
+                "ID", "TAMAÑO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane5.setViewportView(tbl_terminado);
+        jScrollPane6.setViewportView(tbl_terminado);
 
-        tbl_terminado1.setModel(new javax.swing.table.DefaultTableModel(
+        jLabel7.setText("NUEVO");
+
+        jLabel10.setText("LISTO");
+
+        jLabel11.setText("EJECUCION");
+
+        tbl_bloqueado.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "terminado"
+                "ID", "TAMAÑO"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(tbl_terminado1);
+        jScrollPane5.setViewportView(tbl_bloqueado);
+
+        jLabel12.setText("BLOQUEADO");
+
+        jLabel13.setText("TERMINADO");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(148, 148, 148))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(42, 42, 42)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(21, 21, 21))))
+                        .addGap(95, 95, 95)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 41, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel7)
+                        .addGap(91, 91, 91)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(42, 42, 42)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(21, 21, 21))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(46, 46, 46)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(249, 249, 249))
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addGap(121, 121, 121)
+                                    .addComponent(jLabel11)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel13)
+                                    .addGap(55, 55, 55)))))))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(293, 293, 293)
+                .addComponent(jLabel12)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(17, 17, 17)
+                .addGap(8, 8, 8)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel7)
+                    .addComponent(jLabel11)
+                    .addComponent(jLabel13))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 182, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
+                .addComponent(jLabel12)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jPanel2.setBackground(new java.awt.Color(153, 153, 153));
@@ -235,7 +295,7 @@ public class vista extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -248,11 +308,11 @@ public class vista extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 408, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        btn_reboot.setBackground(new java.awt.Color(255, 255, 0));
+        btn_reboot.setBackground(new java.awt.Color(0, 255, 0));
         btn_reboot.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         btn_reboot.setText("REINICIAR SIMULACION");
         btn_reboot.addActionListener(new java.awt.event.ActionListener() {
@@ -272,12 +332,6 @@ public class vista extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Ingrese tamaño de nuevo proceso:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel6.setText("Ingrese numero de hilos:");
-
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel7.setText("Ingrese numero de hilos:");
-
         op_r1.setText("Recurso1");
         op_r1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -288,10 +342,10 @@ public class vista extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Ingrese recursos del proceso:");
 
-        opr3.setText("Recurso 3");
-        opr3.addActionListener(new java.awt.event.ActionListener() {
+        op_r3.setText("Recurso 3");
+        op_r3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                opr3ActionPerformed(evt);
+                op_r3ActionPerformed(evt);
             }
         });
 
@@ -326,6 +380,8 @@ public class vista extends javax.swing.JFrame {
         btn_clear.setBackground(new java.awt.Color(255, 102, 0));
         btn_clear.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         btn_clear.setText("LIMPIAR FORMULARIO");
+        btn_clear.setEnabled(true
+        );
         btn_clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_clearActionPerformed(evt);
@@ -335,6 +391,7 @@ public class vista extends javax.swing.JFrame {
         btn_addp.setBackground(new java.awt.Color(51, 255, 51));
         btn_addp.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
         btn_addp.setText("AGREGAR PROCESO");
+        btn_addp.setEnabled(true);
         btn_addp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_addpActionPerformed(evt);
@@ -346,38 +403,38 @@ public class vista extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(lbl_idproceso1, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                                    .addComponent(jLabel6))
-                                .addComponent(jLabel7))
-                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(lbl_idproceso2, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
-                                .addComponent(lbl_nomproceso)
-                                .addComponent(lbl_idproceso)
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel4)
-                                .addComponent(jLabel3)))
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
+                                .addGap(27, 27, 27)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(op_r1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel8)
-                                    .addComponent(op_r6, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(op_r5, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(op_r4, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(opr3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(op_r2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(lbl_nomproceso, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btn_addp, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(45, Short.MAX_VALUE))
+                                .addContainerGap()
+                                .addComponent(lbl_idproceso2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(op_r1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(op_r5, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(op_r6, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(op_r3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(op_r2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(op_r4, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_idproceso, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(186, 186, 186)
+                        .addComponent(btn_addp, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -390,22 +447,10 @@ public class vista extends javax.swing.JFrame {
                         .addComponent(lbl_idproceso, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel4)
-                        .addGap(25, 25, 25)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lbl_nomproceso, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lbl_idproceso2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel3Layout.createSequentialGroup()
-                                    .addComponent(jLabel6)
-                                    .addGap(34, 34, 34))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(lbl_idproceso1, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btn_clear)))
-                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(jLabel5))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -413,26 +458,24 @@ public class vista extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(op_r2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(opr3)
+                        .addComponent(op_r3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(op_r4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(op_r5)
+                        .addComponent(op_r5)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(op_r6)
-                        .addGap(18, 18, 18)
-                        .addComponent(btn_addp)))
-                .addContainerGap(26, Short.MAX_VALUE))
+                        .addComponent(op_r6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
+                        .addComponent(lbl_idproceso2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_clear)
+                    .addComponent(btn_addp))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
-
-        btn_run.setBackground(new java.awt.Color(51, 255, 51));
-        btn_run.setFont(new java.awt.Font("Tw Cen MT", 0, 18)); // NOI18N
-        btn_run.setText("INICIAR SIMULACION");
-        btn_run.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_runActionPerformed(evt);
-            }
-        });
 
         jLabel9.setText("Realizado por: Andres Santiago Monsalve Salinas");
 
@@ -445,7 +488,7 @@ public class vista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(37, 37, 37)
                         .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -453,9 +496,7 @@ public class vista extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btn_reboot, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btn_run, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btn_reboot, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(189, 189, 189))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel9)
@@ -465,39 +506,44 @@ public class vista extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(btn_run, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btn_reboot, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(119, 119, 119)
-                        .addComponent(jLabel9))
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(27, Short.MAX_VALUE))
+                        .addGap(106, 106, 106)
+                        .addComponent(btn_reboot, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(34, 34, 34)
+                .addComponent(jLabel9)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_rebootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rebootActionPerformed
-        // TODO add your handling code here:
+
+ 
+        
     }//GEN-LAST:event_btn_rebootActionPerformed
 
-    private void btn_runActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_runActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btn_runActionPerformed
+    public JTable getTbl_bloqueado() {
+        return tbl_bloqueado;
+    }
+
+    public void setTbl_bloqueado(JTable tbl_bloqueado) {
+        this.tbl_bloqueado = tbl_bloqueado;
+    }
 
     private void op_r1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_op_r1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_op_r1ActionPerformed
 
-    private void opr3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opr3ActionPerformed
+    private void op_r3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_op_r3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_opr3ActionPerformed
+    }//GEN-LAST:event_op_r3ActionPerformed
 
     private void op_r2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_op_r2ActionPerformed
         // TODO add your handling code here:
@@ -516,11 +562,100 @@ public class vista extends javax.swing.JFrame {
     }//GEN-LAST:event_op_r5ActionPerformed
 
     private void btn_clearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_clearActionPerformed
-        // TODO add your handling code here:
+     
+       this.lbl_idproceso.setText("");
+       this.lbl_idproceso2.setText("");
+       this.lbl_nomproceso.setText("");
+       this.op_r1.setSelected(false);
+       this.op_r2.setSelected(false);
+       this.op_r3.setSelected(false);
+       this.op_r4.setSelected(false);
+       this.op_r5.setSelected(false);
+       this.op_r6.setSelected(false);
+        
     }//GEN-LAST:event_btn_clearActionPerformed
 
+    public ArrayList<modelo> getNuevo() {
+        return nuevo;
+    }
+
+    public void setNuevo(ArrayList<modelo> nuevo) {
+        this.nuevo = nuevo;
+    }
+
+    public ArrayList<modelo> getListo() {
+        return listo;
+    }
+
+    public void setListo(ArrayList<modelo> listo) {
+        this.listo = listo;
+    }
+
+    public ArrayList<modelo> getEjecucion() {
+        return ejecucion;
+    }
+
+    public void setEjecucion(ArrayList<modelo> ejecucion) {
+        this.ejecucion = ejecucion;
+    }
+
+    public ArrayList<modelo> getBloqueado() {
+        return bloqueado;
+    }
+
+    public void setBloqueado(ArrayList<modelo> bloqueado) {
+        this.bloqueado = bloqueado;
+    }
+
+    public ArrayList<modelo> getTerminado() {
+        return terminado;
+    }
+
+    public void setTerminado(ArrayList<modelo> terminado) {
+        this.terminado = terminado;
+    }
+
+    public ArrayList<modelo> getEstadisticas() {
+        return estadisticas;
+    }
+
+    public void setEstadisticas(ArrayList<modelo> estadisticas) {
+        this.estadisticas = estadisticas;
+    }
+
+    public modelo getObjmodelo() {
+        return objmodelo;
+    }
+
+    public void setObjmodelo(modelo objmodelo) {
+        this.objmodelo = objmodelo;
+    }
+
     private void btn_addpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addpActionPerformed
-        // TODO add your handling code here:
+    String nombre=null;
+    int id=0,tam=0;
+    if(this.lbl_nomproceso.getText().equals("")  || this.lbl_idproceso2.getText().equals("") || this.lbl_idproceso.getText().equals("")){
+          JOptionPane.showMessageDialog(null,"No se pudo crear el proceso, revise el formulario.");
+    }else{
+        
+        try{
+             id=Integer.parseInt(this.lbl_idproceso.getText());
+             
+             tam=Integer.parseInt(this.lbl_idproceso2.getText());
+            
+             nombre=this.lbl_nomproceso.getText();
+          
+             objmodelo=new modelo(id,tam,nombre);
+          
+                     
+             nuevo.add(objmodelo);
+             JOptionPane.showMessageDialog(null,"bien");
+           this.addRowToJTableNew();
+          }catch(Exception e){
+            JOptionPane.showMessageDialog(null,"No se pudo crear el proceso, revise el formulario."+e.getMessage());  
+          }
+    }
+    
     }//GEN-LAST:event_btn_addpActionPerformed
 
     /**
@@ -558,12 +693,292 @@ public class vista extends javax.swing.JFrame {
         });
     }
 
+    public JButton getBtn_addp() {
+        return btn_addp;
+    }
+     public void addRowToJTableNew()
+    {
+        DefaultTableModel model = (DefaultTableModel) this.tbl_nuevo.getModel();
+        Object rowData[] = new Object[2];
+        for(int i = 0; i < nuevo.size(); i++)
+        {
+            rowData[0] = nuevo.get(i).getId();
+            rowData[1] = nuevo.get(i).getTamano();
+            if(i == nuevo.size()-1)
+              model.addRow(rowData);
+        }
+    }
+    public void setBtn_addp(JButton btn_addp) {
+        this.btn_addp = btn_addp;
+    }
+
+    public JButton getBtn_clear() {
+        return btn_clear;
+    }
+
+    public void setBtn_clear(JButton btn_clear) {
+        this.btn_clear = btn_clear;
+    }
+
+    public JButton getBtn_reboot() {
+        return btn_reboot;
+    }
+
+    public void setBtn_reboot(JButton btn_reboot) {
+        this.btn_reboot = btn_reboot;
+    }
+
+
+    public JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public void setjLabel1(JLabel jLabel1) {
+        this.jLabel1 = jLabel1;
+    }
+
+    public JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public void setjLabel2(JLabel jLabel2) {
+        this.jLabel2 = jLabel2;
+    }
+
+    public JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public void setjLabel3(JLabel jLabel3) {
+        this.jLabel3 = jLabel3;
+    }
+
+    public JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public void setjLabel4(JLabel jLabel4) {
+        this.jLabel4 = jLabel4;
+    }
+
+    public JLabel getjLabel5() {
+        return jLabel5;
+    }
+
+    public void setjLabel5(JLabel jLabel5) {
+        this.jLabel5 = jLabel5;
+    }
+
+    public JLabel getjLabel8() {
+        return jLabel8;
+    }
+
+    public void setjLabel8(JLabel jLabel8) {
+        this.jLabel8 = jLabel8;
+    }
+
+    public JLabel getjLabel9() {
+        return jLabel9;
+    }
+
+    public void setjLabel9(JLabel jLabel9) {
+        this.jLabel9 = jLabel9;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public void setjPanel1(JPanel jPanel1) {
+        this.jPanel1 = jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public void setjPanel2(JPanel jPanel2) {
+        this.jPanel2 = jPanel2;
+    }
+
+    public JPanel getjPanel3() {
+        return jPanel3;
+    }
+
+    public void setjPanel3(JPanel jPanel3) {
+        this.jPanel3 = jPanel3;
+    }
+
+    public JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public void setjScrollPane1(JScrollPane jScrollPane1) {
+        this.jScrollPane1 = jScrollPane1;
+    }
+
+    public JScrollPane getjScrollPane2() {
+        return jScrollPane2;
+    }
+
+    public void setjScrollPane2(JScrollPane jScrollPane2) {
+        this.jScrollPane2 = jScrollPane2;
+    }
+
+    public JScrollPane getjScrollPane3() {
+        return jScrollPane3;
+    }
+
+    public void setjScrollPane3(JScrollPane jScrollPane3) {
+        this.jScrollPane3 = jScrollPane3;
+    }
+
+    public JScrollPane getjScrollPane4() {
+        return jScrollPane4;
+    }
+
+    public void setjScrollPane4(JScrollPane jScrollPane4) {
+        this.jScrollPane4 = jScrollPane4;
+    }
+
+    public JScrollPane getjScrollPane5() {
+        return jScrollPane5;
+    }
+
+    public void setjScrollPane5(JScrollPane jScrollPane5) {
+        this.jScrollPane5 = jScrollPane5;
+    }
+
+    public JScrollPane getjScrollPane6() {
+        return jScrollPane6;
+    }
+
+    public void setjScrollPane6(JScrollPane jScrollPane6) {
+        this.jScrollPane6 = jScrollPane6;
+    }
+
+    public JTextField getLbl_idproceso() {
+        return lbl_idproceso;
+    }
+
+    public void setLbl_idproceso(JTextField lbl_idproceso) {
+        this.lbl_idproceso = lbl_idproceso;
+    }
+
+ 
+    public JTextField getLbl_idproceso2() {
+        return lbl_idproceso2;
+    }
+
+    public void setLbl_idproceso2(JTextField lbl_idproceso2) {
+        this.lbl_idproceso2 = lbl_idproceso2;
+    }
+
+    public JTextField getLbl_nomproceso() {
+        return lbl_nomproceso;
+    }
+
+    public void setLbl_nomproceso(JTextField lbl_nomproceso) {
+        this.lbl_nomproceso = lbl_nomproceso;
+    }
+
+    public JRadioButton getOp_r1() {
+        return op_r1;
+    }
+
+    public void setOp_r1(JRadioButton op_r1) {
+        this.op_r1 = op_r1;
+    }
+
+    public JRadioButton getOp_r2() {
+        return op_r2;
+    }
+
+    public void setOp_r2(JRadioButton op_r2) {
+        this.op_r2 = op_r2;
+    }
+
+    public JRadioButton getOp_r4() {
+        return op_r4;
+    }
+
+    public void setOp_r4(JRadioButton op_r4) {
+        this.op_r4 = op_r4;
+    }
+
+    public JRadioButton getOp_r5() {
+        return op_r5;
+    }
+
+    public void setOp_r5(JRadioButton op_r5) {
+        this.op_r5 = op_r5;
+    }
+
+    public JRadioButton getOp_r6() {
+        return op_r6;
+    }
+
+    public void setOp_r6(JRadioButton op_r6) {
+        this.op_r6 = op_r6;
+    }
+
+    public JRadioButton getOpr3() {
+        return op_r3;
+    }
+
+    public void setOpr3(JRadioButton opr3) {
+        this.op_r3 = opr3;
+    }
+
+    public JTable getTbl_ejecucion() {
+        return tbl_ejecucion;
+    }
+
+    public void setTbl_ejecucion(JTable tbl_ejecucion) {
+        this.tbl_ejecucion = tbl_ejecucion;
+    }
+
+    public JTable getTbl_estadprocesos() {
+        return tbl_estadprocesos;
+    }
+
+    public void setTbl_estadprocesos(JTable tbl_estadprocesos) {
+        this.tbl_estadprocesos = tbl_estadprocesos;
+    }
+
+    public JTable getTbl_listo() {
+        return tbl_listo;
+    }
+
+    public void setTbl_listo(JTable tbl_listo) {
+        this.tbl_listo = tbl_listo;
+    }
+
+    public JTable getTbl_nuevo() {
+        return tbl_nuevo;
+    }
+
+    public void setTbl_nuevo(JTable tbl_nuevo) {
+        this.tbl_nuevo = tbl_nuevo;
+    }
+
+    public JTable getTbl_terminado() {
+        return tbl_bloqueado;
+    }
+
+    public void setTbl_terminado(JTable tbl_terminado) {
+        this.tbl_bloqueado = tbl_terminado;
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addp;
     private javax.swing.JButton btn_clear;
     private javax.swing.JButton btn_reboot;
-    private javax.swing.JButton btn_run;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -582,20 +997,19 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTextField lbl_idproceso;
-    private javax.swing.JTextField lbl_idproceso1;
     private javax.swing.JTextField lbl_idproceso2;
     private javax.swing.JTextField lbl_nomproceso;
     private javax.swing.JRadioButton op_r1;
     private javax.swing.JRadioButton op_r2;
+    private javax.swing.JRadioButton op_r3;
     private javax.swing.JRadioButton op_r4;
     private javax.swing.JRadioButton op_r5;
     private javax.swing.JRadioButton op_r6;
-    private javax.swing.JRadioButton opr3;
+    private javax.swing.JTable tbl_bloqueado;
     private javax.swing.JTable tbl_ejecucion;
     private javax.swing.JTable tbl_estadprocesos;
     private javax.swing.JTable tbl_listo;
     private javax.swing.JTable tbl_nuevo;
     private javax.swing.JTable tbl_terminado;
-    private javax.swing.JTable tbl_terminado1;
     // End of variables declaration//GEN-END:variables
 }
