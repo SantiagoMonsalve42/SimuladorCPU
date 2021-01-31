@@ -48,6 +48,7 @@ public class vista extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel6 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -57,7 +58,7 @@ public class vista extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tbl_ejecucion = new javax.swing.JTable();
         jScrollPane6 = new javax.swing.JScrollPane();
-        tbl_terminado = new javax.swing.JTable();
+        tbl_terminados = new javax.swing.JTable();
         jLabel7 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -86,9 +87,14 @@ public class vista extends javax.swing.JFrame {
         op_r5 = new javax.swing.JRadioButton();
         btn_clear = new javax.swing.JButton();
         btn_addp = new javax.swing.JButton();
+        jLabel15 = new javax.swing.JLabel();
+        txt_tbloqueo = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
 
         jLabel6.setText("jLabel6");
+
+        jLabel14.setText("jLabel14");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
@@ -152,7 +158,7 @@ public class vista extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(tbl_ejecucion);
 
-        tbl_terminado.setModel(new javax.swing.table.DefaultTableModel(
+        tbl_terminados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -168,7 +174,7 @@ public class vista extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane6.setViewportView(tbl_terminado);
+        jScrollPane6.setViewportView(tbl_terminados);
 
         jLabel7.setText("NUEVO");
 
@@ -398,6 +404,15 @@ public class vista extends javax.swing.JFrame {
             }
         });
 
+        jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel15.setText("Ingrese el segundo en el que el proceso va a bloquearse:");
+
+        txt_tbloqueo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_tbloqueoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -405,36 +420,40 @@ public class vista extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbl_nomproceso, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(lbl_idproceso2, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(op_r1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8)
-                            .addComponent(op_r5, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(op_r6, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(op_r3, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(op_r2, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(op_r4, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbl_idproceso, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3)))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(186, 186, 186)
-                        .addComponent(btn_addp, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(188, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGap(48, 48, 48)
+                            .addComponent(btn_clear, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(134, 134, 134)
+                            .addComponent(btn_addp, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(jPanel3Layout.createSequentialGroup()
+                                    .addGap(27, 27, 27)
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbl_nomproceso, javax.swing.GroupLayout.PREFERRED_SIZE, 362, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jLabel4)
+                                        .addComponent(jLabel5)))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                    .addContainerGap()
+                                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel15)
+                                        .addComponent(lbl_idproceso2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE)
+                                        .addComponent(txt_tbloqueo, javax.swing.GroupLayout.Alignment.TRAILING))))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel8)
+                                .addComponent(op_r5, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                                .addComponent(op_r4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(op_r3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(op_r2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(op_r1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(op_r6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -470,14 +489,20 @@ public class vista extends javax.swing.JFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(3, 3, 3)
                         .addComponent(lbl_idproceso2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel15)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txt_tbloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_clear)
                     .addComponent(btn_addp))
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
 
-        jLabel9.setText("Realizado por: Andres Santiago Monsalve Salinas");
+        jLabel9.setText("Realizado por: Andres Santiago Monsalve");
+
+        jLabel16.setText("Esteban Guerrero Peña");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -499,8 +524,11 @@ public class vista extends javax.swing.JFrame {
                                 .addComponent(btn_reboot, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(189, 189, 189))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addGap(75, 75, 75))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel9)
-                                .addGap(21, 21, 21))))))
+                                .addGap(60, 60, 60))))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -509,31 +537,47 @@ public class vista extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(106, 106, 106)
-                        .addComponent(btn_reboot, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(34, 34, 34)
-                .addComponent(jLabel9)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(112, 112, 112)
+                        .addComponent(btn_reboot, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel16)
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(31, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_rebootActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rebootActionPerformed
-
- 
-        
+    this.listo.clear();
+    this.nuevo.clear();
+    this.ejecucion.clear();
+    this.terminado.clear();
+    this.bloqueado.clear();
+    this.estadisticas.clear();
+       this.lbl_idproceso.setText("");
+       this.lbl_idproceso2.setText("");
+       this.lbl_nomproceso.setText("");
+       this.op_r1.setSelected(false);
+       this.op_r2.setSelected(false);
+       this.op_r3.setSelected(false);
+       this.op_r4.setSelected(false);
+       this.op_r5.setSelected(false);
+       this.op_r6.setSelected(false);
     }//GEN-LAST:event_btn_rebootActionPerformed
 
-    public JTable getTbl_bloqueado() {
+    public JTable getTbl_bloqueados() {
         return tbl_bloqueado;
     }
 
-    public void setTbl_bloqueado(JTable tbl_bloqueado) {
+    public void setTbl_bloqueados(JTable tbl_bloqueado) {
         this.tbl_bloqueado = tbl_bloqueado;
     }
 
@@ -577,6 +621,22 @@ public class vista extends javax.swing.JFrame {
 
     public ArrayList<modelo> getNuevo() {
         return nuevo;
+    }
+
+    public JRadioButton getOp_r3() {
+        return op_r3;
+    }
+
+    public void setOp_r3(JRadioButton op_r3) {
+        this.op_r3 = op_r3;
+    }
+
+    public JTextField getTxt_tbloqueo() {
+        return txt_tbloqueo;
+    }
+
+    public void setTxt_tbloqueo(JTextField txt_tbloqueo) {
+        this.txt_tbloqueo = txt_tbloqueo;
     }
 
     public void setNuevo(ArrayList<modelo> nuevo) {
@@ -633,7 +693,7 @@ public class vista extends javax.swing.JFrame {
 
     private void btn_addpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addpActionPerformed
     String nombre=null;
-    int id=0,tam=0;
+    int id=0,tam=0,sbloq=0;
     if(this.lbl_nomproceso.getText().equals("")  || this.lbl_idproceso2.getText().equals("") || this.lbl_idproceso.getText().equals("")){
           JOptionPane.showMessageDialog(null,"No se pudo crear el proceso, revise el formulario.");
     }else{
@@ -644,13 +704,21 @@ public class vista extends javax.swing.JFrame {
              tam=Integer.parseInt(this.lbl_idproceso2.getText());
             
              nombre=this.lbl_nomproceso.getText();
+              
+             sbloq=Integer.parseInt(this.txt_tbloqueo.getText());
           
-             objmodelo=new modelo(id,tam,nombre);
-          
-                     
+             objmodelo=new modelo(id,tam,sbloq,nombre);
+             if(verificarID(objmodelo)){
+                 JOptionPane.showMessageDialog(null,"El id ingresado ya existe.");
+             }else
+             if(sbloq >= tam){
+                 JOptionPane.showMessageDialog(null,"El tiempo en el que se bloque el proceso debe ser menor a el tamaño del mismo.");
+             }else{        
              nuevo.add(objmodelo);
-             JOptionPane.showMessageDialog(null,"bien");
-           this.addRowToJTableNew();
+             estadisticas.add(objmodelo); 
+             
+             }
+            
           }catch(Exception e){
             JOptionPane.showMessageDialog(null,"No se pudo crear el proceso, revise el formulario."+e.getMessage());  
           }
@@ -658,6 +726,17 @@ public class vista extends javax.swing.JFrame {
     
     }//GEN-LAST:event_btn_addpActionPerformed
 
+    private void txt_tbloqueoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_tbloqueoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_tbloqueoActionPerformed
+      public boolean verificarID(modelo objmodelo){
+      for(int i=0;i<this.estadisticas.size();i++){
+          if( objmodelo.getId() == this.estadisticas.get(i).getId()){
+              return true;
+          }
+      }
+      return false;
+     }
     /**
      * @param args the command line arguments
      */
@@ -695,18 +774,6 @@ public class vista extends javax.swing.JFrame {
 
     public JButton getBtn_addp() {
         return btn_addp;
-    }
-     public void addRowToJTableNew()
-    {
-        DefaultTableModel model = (DefaultTableModel) this.tbl_nuevo.getModel();
-        Object rowData[] = new Object[2];
-        for(int i = 0; i < nuevo.size(); i++)
-        {
-            rowData[0] = nuevo.get(i).getId();
-            rowData[1] = nuevo.get(i).getTamano();
-            if(i == nuevo.size()-1)
-              model.addRow(rowData);
-        }
     }
     public void setBtn_addp(JButton btn_addp) {
         this.btn_addp = btn_addp;
@@ -962,13 +1029,22 @@ public class vista extends javax.swing.JFrame {
         this.tbl_nuevo = tbl_nuevo;
     }
 
-    public JTable getTbl_terminado() {
+    public JTable getTbl_bloqueado() {
         return tbl_bloqueado;
     }
 
-    public void setTbl_terminado(JTable tbl_terminado) {
-        this.tbl_bloqueado = tbl_terminado;
+    public void setTbl_bloqueado(JTable tbl_bloqueado) {
+        this.tbl_bloqueado = tbl_bloqueado;
     }
+
+    public JTable getTbl_terminados() {
+        return tbl_terminados;
+    }
+
+    public void setTbl_terminados(JTable tbl_terminados) {
+        this.tbl_terminados = tbl_terminados;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_addp;
@@ -979,6 +1055,9 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1010,6 +1089,7 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JTable tbl_estadprocesos;
     private javax.swing.JTable tbl_listo;
     private javax.swing.JTable tbl_nuevo;
-    private javax.swing.JTable tbl_terminado;
+    private javax.swing.JTable tbl_terminados;
+    private javax.swing.JTextField txt_tbloqueo;
     // End of variables declaration//GEN-END:variables
 }

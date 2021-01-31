@@ -10,8 +10,33 @@ package modelo;
  * @author Santiago
  */
 public class modelo {
-    private int id,tamano;
-    private String nombre;
+    private int id,tamano,sbloq;
+    private String nombre,estado; 
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    
+    public modelo(int id, int tamano, int sbloq, String nombre) {
+        this.id = id;
+        this.tamano = tamano;
+        this.sbloq = sbloq;
+        this.nombre = nombre;
+    }
+
+    public int getSbloq() {
+        return sbloq;
+    }
+
+    public void setSbloq(int sbloq) {
+        this.sbloq = sbloq;
+    }
+    
 
     public modelo() {
     }
