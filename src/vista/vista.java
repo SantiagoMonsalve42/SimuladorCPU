@@ -89,6 +89,8 @@ public class vista extends javax.swing.JFrame {
         btn_addp = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
         txt_tbloqueo = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        txt_cantsegund = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
 
@@ -413,6 +415,9 @@ public class vista extends javax.swing.JFrame {
             }
         });
 
+        jLabel17.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel17.setText("Ingrese la cantidad de segundos que va a estar bloqueado el proceso:");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -447,12 +452,14 @@ public class vista extends javax.swing.JFrame {
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(jLabel8)
-                                .addComponent(op_r5, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+                                .addComponent(op_r5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(op_r4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(op_r3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(op_r2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(op_r1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(op_r6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(op_r6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel17, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_cantsegund)))))
                 .addContainerGap(33, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -490,9 +497,13 @@ public class vista extends javax.swing.JFrame {
                         .addGap(3, 3, 3)
                         .addComponent(lbl_idproceso2, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jLabel17))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txt_tbloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_tbloqueo, javax.swing.GroupLayout.DEFAULT_SIZE, 35, Short.MAX_VALUE)
+                    .addComponent(txt_cantsegund))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btn_clear)
@@ -610,6 +621,8 @@ public class vista extends javax.swing.JFrame {
        this.lbl_idproceso.setText("");
        this.lbl_idproceso2.setText("");
        this.lbl_nomproceso.setText("");
+       this.txt_cantsegund.setText("");
+       this.txt_tbloqueo.setText("");
        this.op_r1.setSelected(false);
        this.op_r2.setSelected(false);
        this.op_r3.setSelected(false);
@@ -693,7 +706,7 @@ public class vista extends javax.swing.JFrame {
 
     private void btn_addpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_addpActionPerformed
     String nombre=null;
-    int id=0,tam=0,sbloq=0;
+    int id=0,tam=0,sbloq=0,veces=0;
     if(this.lbl_nomproceso.getText().equals("")  || this.lbl_idproceso2.getText().equals("") || this.lbl_idproceso.getText().equals("")){
           JOptionPane.showMessageDialog(null,"No se pudo crear el proceso, revise el formulario.");
     }else{
@@ -706,14 +719,34 @@ public class vista extends javax.swing.JFrame {
              nombre=this.lbl_nomproceso.getText();
               
              sbloq=Integer.parseInt(this.txt_tbloqueo.getText());
-          
-             objmodelo=new modelo(id,tam,sbloq,nombre);
+              
+             veces=Integer.parseInt(this.txt_cantsegund.getText());
+             if(veces <= 0){
+                 veces=-1;
+             }
+             if(sbloq <= 0){
+                 sbloq=-1;
+             }
+             objmodelo=new modelo(id,tam,veces,sbloq,nombre);
              if(verificarID(objmodelo)){
                  JOptionPane.showMessageDialog(null,"El id ingresado ya existe.");
              }else
              if(sbloq >= tam){
                  JOptionPane.showMessageDialog(null,"El tiempo en el que se bloque el proceso debe ser menor a el tamaño del mismo.");
-             }else{        
+             }
+             else{     
+                 JOptionPane.showMessageDialog(null,"Proceso creado satisfactoriamente!");
+            this.lbl_idproceso.setText("");
+            this.lbl_idproceso2.setText("");
+            this.lbl_nomproceso.setText("");
+            this.txt_cantsegund.setText("");
+            this.txt_tbloqueo.setText("");
+            this.op_r1.setSelected(false);
+            this.op_r2.setSelected(false);
+            this.op_r3.setSelected(false);
+            this.op_r4.setSelected(false);
+            this.op_r5.setSelected(false);
+            this.op_r6.setSelected(false);
              nuevo.add(objmodelo);
              estadisticas.add(objmodelo); 
              
@@ -896,6 +929,14 @@ public class vista extends javax.swing.JFrame {
         return jScrollPane3;
     }
 
+    public JTextField getTxt_cantsegund() {
+        return txt_cantsegund;
+    }
+
+    public void setTxt_cantsegund(JTextField txt_cantsegund) {
+        this.txt_cantsegund = txt_cantsegund;
+    }
+
     public void setjScrollPane3(JScrollPane jScrollPane3) {
         this.jScrollPane3 = jScrollPane3;
     }
@@ -1058,6 +1099,7 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -1090,6 +1132,7 @@ public class vista extends javax.swing.JFrame {
     private javax.swing.JTable tbl_listo;
     private javax.swing.JTable tbl_nuevo;
     private javax.swing.JTable tbl_terminados;
+    private javax.swing.JTextField txt_cantsegund;
     private javax.swing.JTextField txt_tbloqueo;
     // End of variables declaration//GEN-END:variables
 }

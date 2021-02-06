@@ -10,9 +10,23 @@ package modelo;
  * @author Santiago
  */
 public class modelo {
-    private int id,tamano,sbloq;
+    
+    private int id,tamano,sbloq,vecesb;
     private String nombre,estado; 
+    
+    public modelo(int id, int tamano, int sbloq, String nombre) {
+        this.id = id;
+        this.tamano = tamano;
+        this.sbloq = sbloq;
+        this.nombre = nombre;
+    }
+    public int getVecesb() {
+        return vecesb;
+    }
 
+    public void setVecesb(int vecesb) {
+        this.vecesb = vecesb;
+    }
     public String getEstado() {
         return estado;
     }
@@ -21,14 +35,22 @@ public class modelo {
         this.estado = estado;
     }
 
-    
-    public modelo(int id, int tamano, int sbloq, String nombre) {
+    public modelo(int id, int tamano, int sbloq, int vecesb, String nombre) {
         this.id = id;
         this.tamano = tamano;
         this.sbloq = sbloq;
+        this.vecesb = vecesb;
         this.nombre = nombre;
     }
 
+    public modelo(int id, int tamano, int sbloq, int vecesb, String nombre, String estado) {
+        this.id = id;
+        this.tamano = tamano;
+        this.sbloq = sbloq;
+        this.vecesb = vecesb;
+        this.nombre = nombre;
+        this.estado = estado;
+    }
     public int getSbloq() {
         return sbloq;
     }

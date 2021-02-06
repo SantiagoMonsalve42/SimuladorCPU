@@ -17,7 +17,6 @@ import vista.vista;
  */
 public class relojCPU extends Thread {
     public vista objvista=new vista();
-    private int tiempo_bloqueo=0;
     public modelo objmodelo = new modelo();
     public void iniciar(){
       
@@ -37,6 +36,8 @@ public class relojCPU extends Thread {
                 this.actualizarEstados();
                 this.dibujarEnEstadisticas();
                 this.Ejecucion();
+                this.ejecucionABloquueado();
+                this.bloqueadoAListo();
                 this.actualizarEstados();
                 this.dibujarEnEstadisticas();
                 this.ejecucionATerminado();
@@ -64,6 +65,7 @@ public class relojCPU extends Thread {
            objmodelo.setNombre(objvista.getNuevo().get(0).getNombre());
            objmodelo.setTamano(objvista.getNuevo().get(0).getTamano());
            objmodelo.setSbloq(objvista.getNuevo().get(0).getSbloq());
+           objmodelo.setVecesb(objvista.getNuevo().get(0).getVecesb());
            objvista.getListo().add(objmodelo);
            objvista.getNuevo().remove(0);
           
@@ -96,6 +98,7 @@ public class relojCPU extends Thread {
            objmodelo.setNombre(objvista.getListo().get(0).getNombre());
            objmodelo.setTamano(objvista.getListo().get(0).getTamano());
            objmodelo.setSbloq(objvista.getListo().get(0).getSbloq());
+           objmodelo.setVecesb(objvista.getListo().get(0).getVecesb());
            objvista.getEjecucion().add(objmodelo);
            objvista.getListo().remove(0);
        
@@ -105,6 +108,15 @@ public class relojCPU extends Thread {
        //cuando hayan procesos en nuevo...
        if(objvista.getEjecucion().size() > 0){
            objvista.getEjecucion().get(0).setTamano(objvista.getEjecucion().get(0).getTamano()-1);
+           if(objvista.getEjecucion().get(0).getVecesb() >0){
+               objvista.getEjecucion().get(0).setVecesb(objvista.getEjecucion().get(0).getVecesb()-1);
+           }          
+      }
+       
+      if(objvista.getBloqueado().size()>0){
+          for(int i=0;i<objvista.getBloqueado().size();i++){
+              objvista.getBloqueado().get(i).setSbloq(objvista.getBloqueado().get(i).getSbloq()-1);
+          }
       }
       
   }
@@ -116,13 +128,76 @@ public class relojCPU extends Thread {
            objmodelo.setId(objvista.getEjecucion().get(0).getId());
            objmodelo.setNombre(objvista.getEjecucion().get(0).getNombre());
            objmodelo.setTamano(objvista.getEjecucion().get(0).getTamano());
+           objmodelo.setSbloq(objvista.getEjecucion().get(0).getSbloq());
+           objmodelo.setVecesb(objvista.getEjecucion().get(0).getVecesb());
            objvista.getListo().add(objmodelo);
            objvista.getEjecucion().remove(0);
      
        }
  
   }
-
+  public void bloqueadoAListo(){
+      if(objvista.getBloqueado().size() >0 && objvista.getListo().isEmpty()){
+                      objmodelo=new modelo();
+           objmodelo.setId(objvista.getBloqueado().get(0).getId());
+           objmodelo.setNombre(objvista.getBloqueado().get(0).getNombre());
+           objmodelo.setTamano(objvista.getBloqueado().get(0).getTamano());
+           objmodelo.setSbloq(-1);
+           objmodelo.setVecesb(-1);
+           objvista.getListo().add(objmodelo);
+           objvista.getBloqueado().remove(0);
+      }else
+     if(objvista.getBloqueado().size() >0){
+         for(int i=0;i<objvista.getBloqueado().size();i++){
+             if(objvista.getBloqueado().get(i).getSbloq() == 0){
+                      objmodelo=new modelo();
+           objmodelo.setId(objvista.getBloqueado().get(i).getId());
+           objmodelo.setNombre(objvista.getBloqueado().get(i).getNombre());
+           objmodelo.setTamano(objvista.getBloqueado().get(i).getTamano());
+           objmodelo.setSbloq(objvista.getBloqueado().get(i).getSbloq());
+           objmodelo.setVecesb(objvista.getBloqueado().get(i).getVecesb());
+           objvista.getListo().add(objmodelo);
+           objvista.getBloqueado().remove(i);
+             }
+         }
+     }
+  }    
+  public void ejecucionABloquueado(){
+      if(objvista.getEjecucion().size() >= 0){ 
+            for(int i=0;i<objvista.getEjecucion().size();i++){
+               if(objvista.getEjecucion().get(i).getVecesb() == 0 && objvista.getEjecucion().get(i).getSbloq() > 0){
+                   objmodelo=new modelo();
+                   objmodelo.setId(objvista.getEjecucion().get(i).getId());
+                   objmodelo.setNombre(objvista.getEjecucion().get(i).getNombre());
+                   objmodelo.setTamano(objvista.getEjecucion().get(i).getTamano());
+                   objmodelo.setSbloq(objvista.getEjecucion().get(i).getSbloq());
+                   objmodelo.setVecesb(objvista.getEjecucion().get(i).getVecesb());
+                   objvista.getBloqueado().add(objmodelo);
+                   objvista.getEjecucion().remove(i);
+               }
+           }
+       }
+  }
+ public void ejecucionATerminado(){
+     
+    //cuando hayan procesos en nuevo...
+  
+       if(objvista.getEjecucion().size() >= 0){ 
+            for(int i=0;i<objvista.getEjecucion().size();i++){
+               if(objvista.getEjecucion().get(i).getTamano() <= 0 ){
+                   objmodelo=new modelo();
+                   objmodelo.setId(objvista.getEjecucion().get(i).getId());
+                   objmodelo.setNombre(objvista.getEjecucion().get(i).getNombre());
+                   objmodelo.setTamano(objvista.getEjecucion().get(i).getTamano());
+                   objmodelo.setSbloq(objvista.getEjecucion().get(i).getSbloq());
+                   objmodelo.setVecesb(objvista.getEjecucion().get(i).getVecesb());
+                   objvista.getTerminado().add(objmodelo);
+                   objvista.getEjecucion().remove(i);
+               }
+           }
+       }
+       
+  }
   public void dibujarEnListo(){
       
       DefaultTableModel model_listo = (DefaultTableModel) this.objvista.getTbl_listo().getModel();
@@ -183,6 +258,20 @@ public class relojCPU extends Thread {
          model_estad.addRow(rowData);
       }
   }
+  public void dibujarEnBloqueado(){
+     DefaultTableModel model_bloque = (DefaultTableModel) this.objvista.getTbl_bloqueado().getModel(); 
+    int a=model_bloque.getRowCount()-1;
+     for(int i=a; i>=0;i--){
+        model_bloque.removeRow(i);
+      }
+      Object rowData[] = new Object[2];
+      for(int i=0;i<objvista.getBloqueado().size();i++){
+         rowData[0]=objvista.getBloqueado().get(i).getId();
+         rowData[1]=objvista.getBloqueado().get(i).getTamano();
+         
+         model_bloque.addRow(rowData);
+      }
+  }
   public void actualizarEstados(){
       for(int i=0;i<objvista.getEstadisticas().size();i++){
           int j;
@@ -198,7 +287,7 @@ public class relojCPU extends Thread {
           }
           for(j=0;j<objvista.getBloqueado().size();j++){
               if(objvista.getEstadisticas().get(i).getId() == objvista.getBloqueado().get(j).getId()){
-                  objvista.getEstadisticas().get(i).setEstado("bloquado");
+                  objvista.getEstadisticas().get(i).setEstado("bloqueado");
               }
           }
           for(j=0;j<objvista.getEjecucion().size();j++){
@@ -220,33 +309,17 @@ public class relojCPU extends Thread {
             this.dibujarEnEjecucion();
             this.dibujarEnTerminado();
             this.dibujarEnEstadisticas();
+            this.dibujarEnBloqueado();
         }catch(Exception e){
             System.out.println("error"+e.getMessage());
         }
     }
-  public void ejecucionATerminado(){
-     
-    //cuando hayan procesos en nuevo...
-  
-       if(objvista.getEjecucion().size() >= 0){ 
-            for(int i=0;i<objvista.getEjecucion().size();i++){
-               if(objvista.getEjecucion().get(i).getTamano() <= 0 ){
-                   objmodelo=new modelo();
-                   objmodelo.setId(objvista.getEjecucion().get(i).getId());
-                   objmodelo.setNombre(objvista.getEjecucion().get(i).getNombre());
-                   objmodelo.setTamano(objvista.getEjecucion().get(i).getTamano());
-                   objvista.getTerminado().add(objmodelo);
-                   objvista.getEjecucion().remove(i);
-               }
-           }
-       }
-       
-  }
+ 
   public void mostrarterminidado(){
       System.out.println("Listo tiene: ");
       for(int i=0; i< objvista.getListo().size();i++){
           System.out.println(objvista.getListo().get(i).getId());
-          System.out.println(objvista.getListo().get(i).getTamano());
+          System.out.println(objvista.getListo().get(i).getVecesb());
       }
         System.out.println("");
           System.out.println("");
